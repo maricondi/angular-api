@@ -9,25 +9,36 @@ import { map } from "rxjs/operators";
 })
 export class NewsComponent implements OnInit {
 
-  private apiUrl = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=cbc77ffdcac340f38dfdcbb2860d4e33';
+  private country: string = 'br';
   newsData: any = {};
-  published = null;
 
   constructor(private http: Http) {
-    this.getData();
-    this.getNews();
+    this.getNews('all', false);
   }
 
   ngOnInit(){
   }
 
-  getData() {
-    return this.http.get(this.apiUrl).pipe(map((res: Response) => res.json()));
+  getData(url) {
+    return this.http.get(url).pipe(map((res: Response) => res.json()));
   }
-  getNews() {
-    this.getData().subscribe(data => {
+  getNews(anything, search) {
+    let url = null;
+    if(search) {
+      if(anything == ''){
+        anything = 'all';
+      }
+      url = `https://newsapi.org/v2/everything?q=${anything}&apiKey=cbc77ffdcac340f38dfdcbb2860d4e33`;
+    } else {
+      url = `https://newsapi.org/v2/everything?q=${anything}&apiKey=cbc77ffdcac340f38dfdcbb2860d4e33`;
+    }
+    this.getData(url).subscribe(data => {
       this.newsData = data;
     })
+  }
+  
+  onSearchNews(word) {
+    this.getNews(word, true);
   }
 
 }
