@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<div class="container">
+  <div class="news-container" id="new{{i}}" *ngFor="let new of newsData.articles; let i = index">
+    <div *ngIf="i == 0; else others" id="idnew{{i}}">
+      <div class="news-first">
+        <div class="news-title{{i}}"><a href="{{new.url}}" style="color: #222">{{new.title}}</a></div>
+        <div class="news-desc">{{new.description}}</div>
+        <p class="news-date"><span class="glyphicon glyphicon-time" aria-hidden="true"><span style="margin-left: 10px">{{ new.publishedAt }}</span></span></p>
+      </div>
+      <div class="news-second"><img class="news-image{{i}}" src={{new.urlToImage}} /></div>
+    </div>
+    <ng-template #others>
+      <div><img class="news-image" src={{new.urlToImage}} /></div>
+      <div class="news-title"><a href="{{new.url}}" style="color: #222">{{new.title}}</a></div>
+      <div class="news-desc">{{new.description}}</div>
+      <p class="news-date"><span class="glyphicon glyphicon-time" aria-hidden="true"><span style="margin-left: 10px">{{ new.publishedAt }}</span></span></p>
+    </ng-template>
+  </div>
+</div>
