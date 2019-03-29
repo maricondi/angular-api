@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<app-menu (handleSearchNews)="onSearchNews($event)"></app-menu>
+<app-menu (handleSearchNews)="onSearchNews($event)" (handleCategoryNews)="onCategoryNews($event)"></app-menu>
 <div class="container">
-  <div class="news-container" id="new{{i}}" *ngFor="let new of newsData.articles; let i = index">
+  <div class="news-container" id="new{{i}}" *ngFor="let new of pagedItems; let i = index">
     <div *ngIf="i == 0; else others" id="idnew{{i}}">
       <div class="news-first">
         <div class="news-title{{i}}"><a href="{{new.url}}" style="color: #222">{{new.title}}</a></div>
@@ -17,4 +17,21 @@
       <p class="news-date"><span class="glyphicon glyphicon-time" aria-hidden="true"><span style="margin-left: 10px">{{ new.publishedAt }}</span></span></p>
     </ng-template>
   </div>
+  <ul style="cursor: pointer" *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(1)">First</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a (click)="setPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.totalPages)">Last</a>
+      </li>
+  </ul>
 </div>

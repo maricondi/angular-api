@@ -5,14 +5,36 @@
     </button>
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/news">News <span class="sr-only">(current)</span></a>
+        <li style="padding-right: 5px" class="nav-item">
+          <a class="nav-link" routerLink="/news" *ngIf="!weatherInput" (click)="hookCategoryNews('general')">General <span class="sr-only">(current)</span></a>
+        </li>
+        <li style="padding-right: 5px" class="nav-item">
+          <a style="cursor: pointer" class="nav-link" routerLink="/news" *ngIf="!weatherInput" (click)="hookCategoryNews('business')">Business</a>
+        </li>
+        <li style="padding-right: 5px" class="nav-item">
+          <a style="cursor: pointer" class="nav-link" routerLink="/news" *ngIf="!weatherInput" (click)="hookCategoryNews('entertainment')">Entertainment</a>
+        </li>
+        <li style="padding-right: 5px" class="nav-item">
+          <a style="cursor: pointer" class="nav-link" routerLink="/news" *ngIf="!weatherInput" (click)="hookCategoryNews('health')">Health</a>
+        </li>
+        <li style="padding-right: 5px" class="nav-item">
+          <a style="cursor: pointer" class="nav-link" routerLink="/news" *ngIf="!weatherInput" (click)="hookCategoryNews('science')">Science</a>
+        </li>
+        <li style="padding-right: 5px" class="nav-item">
+          <a style="cursor: pointer" class="nav-link" routerLink="/news" *ngIf="!weatherInput" (click)="hookCategoryNews('sports')">Sports</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/weather">Weather</a>
+          <a style="cursor: pointer" class="nav-link" routerLink="/news" *ngIf="!weatherInput" (click)="hookCategoryNews('technology')">Technology</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/news" *ngIf="weatherInput" (click)="hookSearchNews('all')">News <span class="sr-only">(current)</span></a>
+        </li>
+        <li style="padding-left: 5px" class="nav-item">
+          <a style="color: #21d192" class="nav-link" routerLink="/weather">Weather</a>
         </li>
       </ul>
     </div>
-    <input style="width: 30%" class="form-control mr-sm-2" type="text" placeholder="Enter your search news here"  aria-label="Search"  value="" (change)="hookSearchNews($event.target.value)" onblur="this.value=''">
+    <input style="width: 30%" *ngIf="weatherInput" class="form-control mr-sm-2" type="text" placeholder="Find your city"  aria-label="Search"  value="" (change)="hookSearchWeatherCity($event.target.value)" onblur="this.value=''">
+    <input style="width: 30%" *ngIf="!weatherInput" class="form-control mr-sm-2" type="text" placeholder="Enter your search news here"  aria-label="Search"  value="" (change)="hookSearchNews($event.target.value)" onblur="this.value=''">
   </nav>
   

@@ -1,1 +1,7 @@
-<app-menu></app-menu>
+<app-menu [weatherInput]="isWeather" (handleSearchWeatherCity)="onSearchWeatherCity($event)"></app-menu>
+<div style="padding: 20px 0 10px 150px; font-size: 26px; font-family: Arial, Helvetica, sans-serif; color: #333333">
+    {{weatherData.name}}
+</div>
+<div style="width: 65%; margin: 10px 0 20px 150px " *ngIf="chart">
+    <canvas id="canvas">{{ chart }}</canvas>
+</div>

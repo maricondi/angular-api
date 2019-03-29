@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NewsComponent } from './news/news.component';
 import { WeatherComponent } from './weather/weather.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PagerService } from './_services/index';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { AppRoutingModule } from './app-routing.module';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    PagerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

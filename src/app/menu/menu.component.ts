@@ -8,6 +8,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class MenuComponent implements OnInit {
 
   @Output() handleSearchNews = new EventEmitter();
+  @Output() handleCategoryNews = new EventEmitter();
+  @Output() handleSearchWeatherCity = new EventEmitter();
+  @Input() weatherInput;
 
   constructor() { }
 
@@ -16,6 +19,14 @@ export class MenuComponent implements OnInit {
 
   hookSearchNews(word) {
     this.handleSearchNews.emit(word);
+  }
+
+  hookSearchWeatherCity(city) {
+    this.handleSearchWeatherCity.emit(city);
+  }
+
+  hookCategoryNews(category) {
+    this.handleCategoryNews.emit(category);
   }
 
   title = "Angular News";
