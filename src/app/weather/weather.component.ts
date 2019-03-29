@@ -12,8 +12,13 @@ export class WeatherComponent implements OnInit {
 
   weatherData = []; 
   chart = [];
-  day = ["Monday", "Thursday", "Saturday"];
-  temp = [29, 31, 18];
+  time = [];
+  temp = {
+    day: [],
+    night: [],
+    eve: [],
+    morn: []
+  };
   defaultCity = 'São Paulo';
   isWeather = true;
 
@@ -30,30 +35,67 @@ export class WeatherComponent implements OnInit {
 
   getWeather(city) {
     this.getData(city).subscribe(data => {
-     this.weatherData = data;
-     this.generateChart(data);
+      this.weatherData = data;
+      this.getAllData(data.id).subscribe(data => {
+        data.list.map(it => {
+          console.log(it)
+          this.time.push(new Date(it.dt).getMinutes())
+          this.temp.day.push(it.temp.day)
+          this.temp.eve.push(it.temp.eve)
+          this.temp.night.push(it.temp.night)
+          this.temp.morn.push(it.temp.morn)
+        })
+        this.generateChart();
+      })
     })
+   
   }
   getData(city) {
-    let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=27a35bd8cd1ef31c4ff035e7e5603102`
+    let url = `https://openweathermap.org/data/2.5/weather?q=${city}&appid=b6907d289e10d714a6e88b30761fae22&id=3449319`;
     return this.http.get(url).pipe(map((res: Response) => res.json()));
   }
-  generateChart(data) {
+  getAllData(id) {
+    let url = `https://openweathermap.org/data/2.5/forecast/daily/?appid=b6907d289e10d714a6e88b30761fae22&id=${id}&units=metric`;
+    return this.http.get(url).pipe(map((res: Response) => res.json()));
+  }
+
+  generateChart() {
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
-        labels: this.day,
+        labels: this.time,
         datasets: [
           {
-            data: this.temp,
-            borderColor: '#3cba9f',
+            data: this.temp.day,
+            label: 'afternoon',
+            borderColor: '#e6e600',
+            fill: false
+          },
+          {
+            data: this.temp.eve,
+            label: 'evening',
+            borderColor: '#990073',
+            fill: false
+          },
+          {
+            data: this.temp.morn,
+            label: 'morning',
+            borderColor: '#b30000',
+            fill: false
+          },
+          {
+            data: this.temp.night,
+            label: 'night',
+            borderColor: '#00802b',
             fill: false
           }
         ]
       },
       options: {
         legend: {
-          display: false
+          display: true,
+          label: 'fsd'
+
         },
         scales: {
           xAxes: [{

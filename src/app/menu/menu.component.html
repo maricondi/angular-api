@@ -34,7 +34,7 @@
         </li>
       </ul>
     </div>
-    <input style="width: 30%" *ngIf="weatherInput" class="form-control mr-sm-2" type="text" placeholder="Find your city"  aria-label="Search"  value="" (change)="hookSearchWeatherCity($event.target.value)" onblur="this.value=''">
+    <input style="width: 30%" *ngIf="weatherInput" class="form-control mr-sm-2" type="text" placeholder="Search your city"  aria-label="Search"  value="" (change)="hookSearchWeatherCity($event.target.value)" onblur="this.value=''">
     <input style="width: 30%" *ngIf="!weatherInput" class="form-control mr-sm-2" type="text" placeholder="Enter your search news here"  aria-label="Search"  value="" (change)="hookSearchNews($event.target.value)" onblur="this.value=''">
   </nav>
   
